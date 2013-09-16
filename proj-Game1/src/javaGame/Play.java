@@ -10,6 +10,8 @@ int totalAmmo = 200;
 int shotDelta = 200;
 int posX = 250;
 int posY = 250;
+int boxX = 200;
+int boxY = 200;
 int movAmount = 1;
 long lastMovement = System.currentTimeMillis();
 long lastShot = System.currentTimeMillis();
@@ -18,7 +20,6 @@ boolean auto = false;
 boolean noAmmo = false;
 
 Image character = null;
-
   public Play(int state){
     
   }
@@ -36,6 +37,9 @@ Image character = null;
     }
     character.draw(posX, posY);
     g.drawLine(posX, posY+20, Mouse.getX(), 500-Mouse.getY());
+    g.drawRect(boxX, boxY, 50, 50);
+    g.drawString("posX,posY" + posX + "," + posY, 300,10);
+    g.drawString("boxX,boxY" + boxX + "," + boxY, 300,30);
   }
   
   public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
@@ -74,7 +78,7 @@ Image character = null;
         noAmmo = true;
       }
     }
-    if (System.currentTimeMillis() - lastMovement > 2){
+    if (System.currentTimeMillis() - lastMovement > 15){
     if (input.isKeyDown(Input.KEY_UP) || input.isKeyDown(Input.KEY_W)){
       posY -= movAmount;
       character = new Image("res/buckysBack.png");
@@ -92,6 +96,17 @@ Image character = null;
       character = new Image("res/buckysRight.png");
     }
     lastMovement = System.currentTimeMillis();
+    }
+    
+    if (input.isKeyDown(Input.KEY_E) && (input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_A))){
+      if (posX-boxX == -40){
+        boxX -= movAmount;
+      }
+    }
+    if (input.isKeyDown(Input.KEY_E) && (input.isKeyDown(Input.KEY_RIGHT) || input.isKeyDown(Input.KEY_D))){
+      if (posX-boxX == -40){
+        boxX += movAmount;
+      }
     }
   }
   

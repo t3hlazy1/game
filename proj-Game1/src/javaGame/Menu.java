@@ -26,7 +26,7 @@ public class Menu extends BasicGameState {
     int mouseY = Mouse.getY();
     if (mouseX >= 180 && mouseX <= 305 && mouseY >= 265 && mouseY <= 315){
       if (Mouse.isButtonDown(0)){
-        sbg.enterState(1);;
+        sbg.enterState(1);
       }
     }
   }

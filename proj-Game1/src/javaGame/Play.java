@@ -17,12 +17,24 @@ int posX = 250;
 int posY = 250;
 int boxX = 200;
 int boxY = 200;
+int menu1x = 350; 
+int menu1y = 100;
+int menu2x = 350; 
+int menu2y = 150;
+int menu3x = 350; 
+int menu3y = 200;
+int menu4x = 350; 
+int menu4y = 250;
+int money = 1000;
+int moneyLeft = 0;  
 int movAmount = 1; //ammount char moves a frame
 long lastMovement = System.currentTimeMillis();
 long lastShot = System.currentTimeMillis(); 
 boolean mouseUp = true; //if mouse was released
 boolean auto = true; //automatic gun or not (hold mouse to shoot, or click to shoot)
 boolean noAmmo = false; //if you have ammo or not
+boolean menuOpen = false; 
+String[] GunArray = {"M4","AK", "trest", "asdf"}; 
 
 Image character = null;
   public Play(int state){
@@ -33,8 +45,8 @@ Image character = null;
     character = new Image("res/buckysFront.png");
   }
   
-  public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
-    
+  public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{ 
+	  g.setColor(Color.white); 
 	  g.drawRect(245, 360, 220, 50); 
 	  g.drawString("Press V for weapon type", 250, 375); 
     g.drawString("Ammo: " + ammo + "/" + totalAmmo, 10, 30);
@@ -42,13 +54,31 @@ Image character = null;
     if (noAmmo){
       g.drawString("No Ammo!", 300, 200);
     }
-    if(auto == true){
+    if(auto){
     	g.drawString("Gun type: Automatic", 100, 100); 
     }
     else{
     	g.drawString("Gun type: Manual", 100, 100); 
     }
-    
+    if(menuOpen){
+    	g.setColor(Color.red); 
+    	g.fillRect(menu1x, menu1y, 95, 45);
+    	g.setColor(Color.black); 
+    	g.drawString(GunArray[0], 385, 115); 
+    	g.setColor(Color.red);
+    	g.fillRect(menu2x, menu2y, 95, 45);
+    	g.setColor(Color.black); 
+    	g.drawString(GunArray[1], 385, 160);
+    	g.setColor(Color.red);
+    	g.fillRect(menu3x, menu3y, 95, 45);
+    	g.setColor(Color.black); 
+    	g.drawString(GunArray[2], 385, 215);
+    	g.setColor(Color.red);
+    	g.fillRect(menu4x, menu4y, 95, 45);
+    	g.setColor(Color.black); 
+    	g.drawString(GunArray[3], 385, 270);
+    }
+    g.setColor(Color.white); 
     character.draw(posX, posY);
     g.drawLine(posX, posY+20, Mouse.getX(), 500-Mouse.getY());
     g.drawRect(boxX, boxY, 50, 50);
@@ -66,6 +96,12 @@ Image character = null;
     	else{
     		auto = false; 
     	}
+    }
+    if(input.isKeyDown(Input.KEY_M)){
+    	menuOpen = true; 
+    }
+    else{
+    	menuOpen = false; 
     }
     if(Mouse.isButtonDown(0) && ((long)(System.currentTimeMillis() - lastShot) > shotDelta) && (auto || mouseUp)){
       if (ammo > 0){

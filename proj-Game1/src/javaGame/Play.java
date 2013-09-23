@@ -5,19 +5,24 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
 public class Play extends BasicGameState {
-int ammo = 30;
-int totalAmmo = 200;
-int shotDelta = 200;
-int posX = 250;
+int ammo = 30; //ammo in gun
+int totalAmmo = 200; //total ammo not in gun
+int shotDelta = 200; //time between shots in ms
+//positions
+//we need to figure out a better way to have object positions. Do we use an array/linked list?
+//like each object has an id, and it's position is held in an int array positions
+//so object 2 would be drawn at (positionX[2],positionY[2])?
+//prob should create a topic on github
+int posX = 250; 
 int posY = 250;
 int boxX = 200;
 int boxY = 200;
-int movAmount = 1;
+int movAmount = 1; //ammount char moves a frame
 long lastMovement = System.currentTimeMillis();
-long lastShot = System.currentTimeMillis();
-boolean mouseUp = true;
-boolean auto = false;
-boolean noAmmo = false;
+long lastShot = System.currentTimeMillis(); 
+boolean mouseUp = true; //if mouse was released
+boolean auto = false; //automatic gun or not (hold mouse to shoot, or click to shoot)
+boolean noAmmo = false; //if you have ammo or not
 
 Image character = null;
   public Play(int state){
@@ -116,3 +121,4 @@ Image character = null;
   
 }
 //testttt
+//test22

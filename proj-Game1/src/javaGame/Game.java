@@ -37,4 +37,5 @@ public class Game extends StateBasedGame{
 	//test 3sda:LKSfjalk;sdhfklasdhfk;lashdf;ashdfasdf
 	//HELLO, IS THIS WORKING
 	//another test
+	//do i have to sync
 }

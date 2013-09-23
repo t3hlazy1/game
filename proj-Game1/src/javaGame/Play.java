@@ -21,7 +21,7 @@ int movAmount = 1; //ammount char moves a frame
 long lastMovement = System.currentTimeMillis();
 long lastShot = System.currentTimeMillis(); 
 boolean mouseUp = true; //if mouse was released
-boolean auto = false; //automatic gun or not (hold mouse to shoot, or click to shoot)
+boolean auto = true; //automatic gun or not (hold mouse to shoot, or click to shoot)
 boolean noAmmo = false; //if you have ammo or not
 
 Image character = null;
@@ -35,11 +35,20 @@ Image character = null;
   
   public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
     
+	  g.drawRect(245, 360, 220, 50); 
+	  g.drawString("Press V for weapon type", 250, 375); 
     g.drawString("Ammo: " + ammo + "/" + totalAmmo, 10, 30);
     g.drawString("" + System.currentTimeMillis(), 50, 50);
     if (noAmmo){
       g.drawString("No Ammo!", 300, 200);
     }
+    if(auto == true){
+    	g.drawString("Gun type: Automatic", 100, 100); 
+    }
+    else{
+    	g.drawString("Gun type: Manual", 100, 100); 
+    }
+    
     character.draw(posX, posY);
     g.drawLine(posX, posY+20, Mouse.getX(), 500-Mouse.getY());
     g.drawRect(boxX, boxY, 50, 50);
@@ -50,6 +59,14 @@ Image character = null;
   public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
     
     Input input = gc.getInput();
+    if(input.isKeyPressed(Input.KEY_V)){
+    	if(auto == false){
+    		auto = true; 
+    	}
+    	else{
+    		auto = false; 
+    	}
+    }
     if(Mouse.isButtonDown(0) && ((long)(System.currentTimeMillis() - lastShot) > shotDelta) && (auto || mouseUp)){
       if (ammo > 0){
       ammo--;
